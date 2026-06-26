@@ -3,6 +3,7 @@ import Editor from './components/Editor';
 import Preview from './components/Preview';
 import { pumlExamples } from './utils/pumlExamples';
 import { generatePlantUML, explainPlantUML } from './utils/aiGenerate';
+import { getPlantUmlUrl } from './utils/plantUML';
 
 function App() {
   const [code, setCode] = useState<string>(pumlExamples.sequence);
@@ -31,6 +32,19 @@ function App() {
     } finally {
       setIsExplaining(false);
     }
+  };
+
+  const handleExportSVG = async () => {
+    const response = await fetch(getPlantUmlUrl(code, 'svg'));
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'diagram.svg';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -66,6 +80,9 @@ function App() {
       <div style={{ marginTop: '16px' }}>
         <button onClick={handleExplain} disabled={isExplaining}>
           {isExplaining ? 'Explaining...' : 'Explain Current Diagram'}
+        </button>
+        <button onClick={handleExportSVG} style={{ marginLeft: '8px' }}>
+          Export as SVG
         </button>
         {explanation && (
           <div style={{ marginTop: '8px', padding: '8px', border: '1px solid #ccc', whiteSpace: 'pre-wrap' }}>
