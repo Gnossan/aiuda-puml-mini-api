@@ -1,5 +1,3 @@
-import React from 'react';
-
 type EditorProps = {
   code: string;
   onChange: (code: string) => void;
