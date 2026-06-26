@@ -1,3 +1,3 @@
-export const getDiagramUrl = async (puml: string): Promise<string> => {
+export const getDiagramUrl = async (_puml: string): Promise<string> => {
   return ''
 }

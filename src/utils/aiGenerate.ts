@@ -1,3 +1,3 @@
-export const generate = async (prompt: string): Promise<string> => {
+export const generate = async (_prompt: string): Promise<string> => {
   return ''
 }
