@@ -1,6 +1,12 @@
-export const examples = [
-  {
-    name: 'Simple class',
-    code: '@startuml\nAlice -> Bob: Hello\n@enduml',
-  },
-] as const
+export const pumlExamples = {
+  sequence: `@startuml
+Alice -> Bob: Hello
+@enduml`,
+  class: `@startuml
+class Person
+Person "1" --> "*" Ticket
+@enduml`,
+  usecase: `@startuml
+user --> (Use case)
+@enduml`,
+} as const;
